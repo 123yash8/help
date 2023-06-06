@@ -1,0 +1,150 @@
+b = int(input("Enter the Size Of Table: "))
+tablel = {}
+tableq = {}
+totl, totq = 0, 0
+
+def create(b) :
+    for i in range(b):
+        tablel[i] = None
+        tableq[i] = None
+create(b)
+def linsert(key, b):
+    global totl
+    hash = key % b
+    flag = 0
+    if tablel[hash] == None:
+        tablel[hash] = key
+    else:
+        for i in range(0, b):
+            hash = (key + i)%b;
+            if tablel[hash] == None:
+                tablel[hash] = key
+                totl += 1
+                flag += 1
+                break 
+        if flag == 0:
+            print("\nElement Not Probed or bucket is Full\n")
+
+
+def qinsert(key, b):
+    hash = key % b
+    flag = 0
+    if tableq[hash] == None:
+        tableq[hash] = key
+    else:
+        for i in range(0, b):
+            global totq
+            hash = (key + (i*i)) % b
+            if tableq[hash] == None:
+                tableq[hash] = key
+                totq += 1
+                flag += 1
+                break 
+        if flag == 0:
+             print("\nElement Not Probed or bucket is Full\n")
+
+
+def display(b):
+    print("Linearly Probed Table")
+    for i in range(b):
+        print(tablel[i])
+    print("Quadratically Probed Table")
+    for i in range(b):
+        print(tableq[i])
+        
+        
+        
+def lsearch(key, b):
+    hash = key % b
+    flag = 0
+    if tablel[hash] == None:
+        print(key, "Not Found")
+    else:
+        for i in range(0, b):
+            hash = (key+i)%b
+            if tablel[hash] == None:
+                print(key, "Not Found")
+                break
+            elif tablel[hash] == key:
+                print(key, "is present at: ", hash+1)
+                flag += 1
+                break
+        if flag == 0:
+            print("Key", key, "is Not Present")
+def qsearch(key, b):
+    hash = key % b
+    flag = 0
+    if tableq[hash] == None:
+        print(key, "Not Found")
+    else:
+        for i in range(0, b):
+            hash = (key+(i*i))%b
+            if tableq[hash] == None:
+                print(key, "Not Found")
+                break
+            elif tableq[hash] == key:
+                print(key, "is present at: ", hash+1)
+                flag += 1
+                break
+        if flag == 0:
+            print("Key", key, "is Not Present")
+        
+while(1):
+    print("Enter your Choice")
+    ch = int(input("\n1.Lprobing | 2.Qprobing | 3.Exit\n"))
+    if ch == 1:
+        ch2 = int(input("1.Insert key | 2.Search | 0. Back\n"))
+        if ch2 == 1:
+            if totl == b:
+                print("THe table is filled\n")
+            else :
+                key = int(input("Enter the Key tou  want to insert\n"))
+                linsert(key, b)
+        elif ch2 == 2:
+            key = int(input("Enter the Key tou  want to search\n"))
+            lsearch(key, b) 
+        elif ch == 0:
+            print("Going Back")
+            break
+        display(b)
+    elif ch == 2:
+        ch3 = int(input("1.Insert | 2.Search | 0.Back\n"))
+        if ch3 == 1:
+            if totl == b:
+                print("Table Filled")
+            else:
+                key = int(input("Enter the Key tou  want to insert\n"))
+                qinsert(key, b)
+        elif ch3 == 2:
+            key = int(input("Enter the Key you want to search\n"))
+            qsearch(key, b) 
+        elif ch == 0:
+            print("Going Back")
+            break
+        display(b)
+    elif ch == 3:
+        print("Exited")
+        break 
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
